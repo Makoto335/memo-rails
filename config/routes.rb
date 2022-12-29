@@ -5,6 +5,6 @@ Rails.application.routes.draw do
                                 controllers: {
                                   registrations: 'auth/registrations',
                                 }
-    resources :memos, only: ['index']
+    resource :user, only: ['show']
   end
 end
