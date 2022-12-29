@@ -1,20 +1,20 @@
 class MemosController < ApplicationController
-  before_action :authenticate_user!, only: ["index"]
+  before_action :authenticate_user!, only: ["index","create"]
   
-  def index
-    memos = Memo.all
-    memos_array =
-      memos.map do |memo|
-        {
-          id: memo.id,
-          user_id: memo.user_id,
-          name: memo.user.name,
-          content: memo.content,
-          email: memo.user.email,
-          created_at: memo.created_at,
-        }
-      end
+  def create
+    @memo = current_user.memos.build(memo_params)
+    # @memo.image.attach(params[:memo][:image])
+    if @memo.save
+    else
+      @feed_items = current_user.feed.page(params[:page])
+      render 'static_pages/home'
+    end
+  end
 
-    render json: memos_array, status: 200
+  private
+
+  def memo_params
+    # params.require(:memo).permit(:title, :content)
+    params.permit(:title, :content)
   end
 end
