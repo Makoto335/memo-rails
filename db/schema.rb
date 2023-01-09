@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_26_053046) do
+ActiveRecord::Schema.define(version: 2023_01_09_073725) do
 
   create_table "memos", force: :cascade do |t|
     t.integer "user_id"
