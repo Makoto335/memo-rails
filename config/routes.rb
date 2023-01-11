@@ -6,5 +6,6 @@ Rails.application.routes.draw do
                                   registrations: 'auth/registrations',
                                 }
     resource :user, only: ['show']
+    resource :memos, only: ['create']
   end
 end
