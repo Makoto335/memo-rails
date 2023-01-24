@@ -6,6 +6,8 @@ Rails.application.routes.draw do
                                   registrations: 'auth/registrations',
                                 }
     resource :user, only: ['show']
-    resource :memos, only: ['create']
+    namespace :api do
+      resources :memos, only: [:index, :show, :create, :update, :destroy]
+    end
   end
 end
