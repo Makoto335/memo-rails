@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     memos_array =
       memos.map do |memo|
         {
+          id:memo.id,
           title:memo.title,
           content: memo.content,
           created_at: memo.created_at,
