@@ -23,6 +23,15 @@ class User < ActiveRecord::Base
             format: {
               with: VALID_EMAIL_REGEX,
             }
+  validates :avatar,
+            content_type: {
+              in: [:png, :jpg, :jpeg],
+              message: 'png, jpg, jpegいずれかの形式にして下さい',
+            },
+            size: {
+              less_than: 5.megabytes,
+              message: 'サイズを5M以下にしてください',
+            }
   def avatar_url
     avatar.attached? ? url_for(avatar) : nil
   end
