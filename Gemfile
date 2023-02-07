@@ -12,6 +12,8 @@ gem 'puma', '~> 5.0'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'active_storage_validations'
+gem 'image_processing'       
+gem 'mini_magick'           
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
