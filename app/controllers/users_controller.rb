@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: ['show']
+  before_action :authenticate_user!, only: ['show','update']
 
   def show
     user = User.find_by(email: request.headers['uid'])
@@ -19,6 +19,23 @@ class UsersController < ApplicationController
                'memos_array' => memos_array,
                'avatar_url' => avatar_url,
              },
-           }, status: 200
+           },
+           status: 200
+  end
+
+  def update
+    user = User.find_by(email: request.headers['uid'])
+    user.avatar.attach(params[:user][:avatar]) if user.avatar.blank?
+    if user.update(user_params)
+      render json: {}, status: 200
+    else
+      render json: {}, status: 500
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:avatar)
   end
 end
