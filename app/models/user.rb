@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_one_attached :avatar
   validates :name, presence: true
   validates :name, presence: true, length: { maximum: 60 }
-  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,128}+\z/i
   validates :email,
             presence: true,
             length: {
