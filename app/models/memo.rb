@@ -1,4 +1,5 @@
 class Memo < ApplicationRecord
   belongs_to :user
-  validates :content, presence: true
+  validates :title, presence: true,length: { maximum: 20 }
+  validates :content, presence: true,length: { maximum: 500 }
 end
