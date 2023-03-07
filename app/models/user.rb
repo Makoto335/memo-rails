@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
               less_than: 2.megabytes,
               message: 'サイズを5M以下にしてください',
             }
+  validates :date_of_birth, presence: true
+  validate :valid_date_format
 
   def avatar_url
     if avatar.attached?
@@ -51,6 +53,12 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def valid_date_format
+    if date_of_birth.present? && date_of_birth > Date.today
+      errors.add(:date_of_birth, "未来の日付は使えません")
+    end
+  end
 
   def default_avatar
     if !self.avatar.attached? && self.new_record?

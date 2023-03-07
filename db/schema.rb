@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_06_080430) do
+ActiveRecord::Schema.define(version: 2023_03_06_045512) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2023_02_06_080430) do
     t.string "encrypted_password", default: "", null: false
     t.string "name"
     t.string "email"
-    t.string "date_of_birth"
+    t.date "date_of_birth"
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
