@@ -1,5 +1,5 @@
-class Api::MemosController < ApplicationController
-  before_action :authenticate_user!, only: %w[create update destroy]
+class Api::V1::MemosController < ApplicationController
+  before_action :authenticate_api_v1_user!, only: %w[create update destroy]
 
   def create
     user = User.find_by(email: request.headers['uid'])
