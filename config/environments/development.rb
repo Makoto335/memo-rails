@@ -65,5 +65,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   # Rails.application.routes.default_url_options[:host] = "localhost:3000"
   Rails.application.routes.default_url_options[:host] = 'localhost'
-  Rails.application.routes.default_url_options[:port] = 3000
+  Rails.application.routes.default_url_options[:port] = 80
+  config.hosts << "localhost"
+  
 end
