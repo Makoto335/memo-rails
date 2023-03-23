@@ -19,6 +19,9 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 app_root = File.expand_path("../..", __FILE__)
 bind "unix://#{app_root}/tmp/sockets/puma.sock"
 # Specifies the `environment` that Puma will run in.
+require 'fileutils'
+on_worker_fork do
+    FileUtils.touch('/tmp/app-initialized')
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
 
