@@ -22,6 +22,7 @@ bind "unix://#{app_root}/tmp/sockets/puma.sock"
 require 'fileutils'
 on_worker_fork do
     FileUtils.touch('/tmp/app-initialized')
+end
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
 
