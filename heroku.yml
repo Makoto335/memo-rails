@@ -4,5 +4,3 @@ setup:
       as: DATABASE
 build:
   web: Dockerfile
-run: 
-  web: 
