@@ -16,7 +16,7 @@ http {
     keepalive_timeout  65;
 
     upstream api {
-        server unix:///tmp/nginx.socket
+        server unix:/tmp/nginx.socket fail_timeout=0;
     }
 
     server {
