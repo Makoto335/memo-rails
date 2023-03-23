@@ -1,1 +1,1 @@
-web: bin/start-nginx bundle exec puma -C config/puma.rb
+ web: bin/nginx -p . -c config/nginx.conf & ; bundle exec puma -C config/puma.rb
