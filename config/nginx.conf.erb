@@ -1,43 +1,46 @@
 
-<%#  user  nobody; %>
-worker_processes  <%= ENV['NGINX_WORKERS'] || 4 %>;
+worker_processes  1;
+daemon off;
 
 events {
-    worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
+    worker_connections  1024;
 }
 
 http {
     include       mime.types;
-     log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
-    access_log <%= ENV['NGINX_ACCESS_LOG_PATH'] || 'logs/nginx/access.log' %> l2met;
-    error_log <%= ENV['NGINX_ERROR_LOG_PATH'] || 'logs/nginx/error.log' %>;
     default_type  application/octet-stream;
+
     server_tokens off;
     sendfile        on;
     #tcp_nopush     on;
 
     keepalive_timeout  65;
 
-    
     upstream api {
         server unix:///tmp/nginx.socket;
     }
+
     server {
-        listen <%= ENV["PORT"] %>; default_server;
+        listen $PORT default_server;
         server_name '_';
-        root /var/wwwwww/dummy;
+        root /var/wwwwww/dummy;  # 無害なコンテンツが返される
     }
 
     server {
-        listen <%= ENV["PORT"] %>;
+        listen       $PORT; 
         server_name  tetete-rails.herokuapp.com;
+
+        access_log   /var/log/nginx/access.log;
+        error_log   /var/log/nginx/error.log;
         client_max_body_size 3m;
 
         location / {
             proxy_pass https://vue-test-container.herokuapp.com;
+            # プロキシされた（代理された）vueサーバにリクエストを飛ばします
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
+    
 
         location /api/ {
             proxy_set_header X-Real-IP $remote_addr;
@@ -52,6 +55,7 @@ http {
         location = /50x.html {
             root   html;
         }
+
     }
     include servers/*;
 }
