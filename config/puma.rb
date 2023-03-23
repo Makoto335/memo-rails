@@ -20,14 +20,12 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 # bind "unix://#{app_root}/tmp/sockets/puma.sock"
 # bind "unix:///tmp/nginx.socket"
 # Specifies the `environment` that Puma will run in.
+# 1 /tmp/nginx.socketでlisten
+bind "unix:///tmp/nginx.socket"
+# 2 masterプロセスがworkerプロセスを生成するときに/tmp/app-initializedを生成する
 require 'fileutils'
-preload_app true
-timeout 5
-worker_processes 4
-listen '/tmp/nginx.socket', backlog: 1024
-
-before_fork do |server,worker|
-	FileUtils.touch('/tmp/app-initialized')
+on_worker_fork do
+    FileUtils.touch('/tmp/app-initialized')
 end
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
