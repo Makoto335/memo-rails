@@ -18,11 +18,12 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 # port ENV.fetch("PORT") { 3000 }
 # app_root = File.expand_path("../..", __FILE__)
 # bind "unix://#{app_root}/tmp/sockets/puma.sock"
-bind "unix:///tmp/nginx.socket"
+# bind "unix:///tmp/nginx.socket"
 # Specifies the `environment` that Puma will run in.
 require 'fileutils'
-on_worker_fork do
-    FileUtils.touch('/tmp/app-initialized')
+listen '/tmp/nginx.socket'
+before_fork do |server,worker|
+	FileUtils.touch('/tmp/app-initialized')
 end
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
