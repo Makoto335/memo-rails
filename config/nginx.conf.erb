@@ -21,13 +21,13 @@ http {
     }
 
     server {
-        listen $PORT default_server;
+        listen <%= ENV["PORT"] %> default_server;
         server_name '_';
         root /var/wwwwww/dummy;  # 無害なコンテンツが返される
     }
 
     server {
-        listen       $PORT; 
+        listen      <%= ENV["PORT"] %>; 
         server_name  tetete-rails.herokuapp.com;
 
         access_log   /var/log/nginx/access.log;
@@ -41,7 +41,6 @@ http {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
     
-
         location /api/ {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header Host $host;
