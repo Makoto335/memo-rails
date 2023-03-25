@@ -16,17 +16,9 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
 # port ENV.fetch("PORT") { 3000 }
-# app_root = File.expand_path("../..", __FILE__)
-# bind "unix://#{app_root}/tmp/sockets/puma.sock"
-# bind "unix:///tmp/nginx.socket"
+app_root = File.expand_path("../..", __FILE__)
+bind "unix://#{app_root}/tmp/sockets/puma.sock"
 # Specifies the `environment` that Puma will run in.
-# 1 /tmp/nginx.socketでlisten
-bind "unix:///tmp/nginx.socket"
-# 2 masterプロセスがworkerプロセスを生成するときに/tmp/app-initializedを生成する
-require 'fileutils'
-on_worker_fork do
-    FileUtils.touch('/tmp/app-initialized')
-end
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
 
