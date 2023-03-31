@@ -91,6 +91,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   Rails.application.routes.default_url_options[:host] = 'seaentrance.link'
   config.hosts << "simple-memo-rails.herokuapp.com"
+  config.active_storage.service = :amazon
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
