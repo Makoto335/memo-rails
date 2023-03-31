@@ -91,6 +91,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   Rails.application.routes.default_url_options[:host] = 'seaentrance.link'
   config.hosts << "seaentrance.link"
+  config.host_authorization = { 
+    exclude: -> (request) { request.path == '/health_check' }
+  }
   config.active_storage.service = :amazon
 
   # Inserts middleware to perform automatic connection switching.
