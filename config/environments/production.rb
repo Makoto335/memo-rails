@@ -90,10 +90,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   Rails.application.routes.default_url_options[:host] = 'seaentrance.link'
-  config.hosts << "seaentrance.link"
-  config.host_authorization = { 
-    exclude: -> (request) { request.path == '/health_check' }
-  }
+  config.hosts << "simple-memo-rails.herokuapp.com"
   config.active_storage.service = :amazon
 
   # Inserts middleware to perform automatic connection switching.
