@@ -90,11 +90,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   Rails.application.routes.default_url_options[:host] = 'seaentrance.link'
-  # config.hosts = [
-  #   'seaentrance.link', # Allow requests from example.com
-  #   /.*\.seaentrance\.link/, # Allow requests from subdomains like `www.example.com`
-  # ]
-  config.hosts.clear
+  config.hosts = [
+    'seaentrance.link', # Allow requests from example.com
+    /.*\.seaentrance\.link/, # Allow requests from subdomains like `www.example.com`
+  ]
+  # config.hosts.clear
   # config.host_authorization = {
   #   exclude: ->(request) { request.path == '/health_check' },
   # }
