@@ -66,11 +66,6 @@ Rails.application.configure do
   # Rails.application.routes.default_url_options[:host] = "localhost:3000"
   Rails.application.routes.default_url_options[:host] = 'localhost'
   Rails.application.routes.default_url_options[:port] = 80
-  config.hosts = [
-    'seaentrance.link', # Allow requests from example.com
-    /.*\.seaentrance\.link/, # Allow requests from subdomains like `www.example.com`
-  ]
-  config.host_authorization = {
-    exclude: ->(request) { request.path == '/health_check' },
-  }
+  # config.hosts << "localhost"
+  config.hosts.clear
 end

@@ -35,9 +35,5 @@ module MemoRails
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.hosts = [
-      'seaentrance.link', # Allow requests from example.com
-      /.*\.seaentrance\.link/, # Allow requests from subdomains like `www.example.com`
-    ]
   end
 end
