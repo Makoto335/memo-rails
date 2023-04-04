@@ -1,9 +1,9 @@
 class Api::V1::MemosController < ApplicationController
   before_action :authenticate_api_v1_user!, only: %w[create update destroy]
+  before_action :set_memo, only: %w[update destroy]
 
   def create
-    user = User.find_by(email: request.headers['uid'])
-    memo = user.memos.build(memo_params)
+    memo = current_api_v1_user.memos.build(memo_params)
     if memo.save
       render json: {}, status: :created
     else
@@ -12,20 +12,18 @@ class Api::V1::MemosController < ApplicationController
   end
 
   def update
-    memo = Memo.find(params[:id])
-    if memo.update(memo_params)
+    if @memo.update(memo_params)
       head :no_content
     else
-      render json: memo.errors, status: :bad_request
+      render json: @memo.errors, status: :bad_request
     end
   end
 
   def destroy
-    memo = Memo.find(params[:id])
-    if memo.destroy
+    if @memo.destroy
       head :no_content
     else
-      render json: memo.errors, status: :bad_request
+      render json: @memo.errors, status: :bad_request
     end
   end
 
@@ -33,5 +31,9 @@ class Api::V1::MemosController < ApplicationController
 
   def memo_params
     params.require(:memo).permit(:title, :content)
+  end
+
+  def set_memo
+    @memo = Memo.find(params[:id])
   end
 end
