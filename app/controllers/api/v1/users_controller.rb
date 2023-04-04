@@ -2,17 +2,9 @@ class Api::V1::UsersController < ApplicationController
   before_action :authenticate_api_v1_user!, only: ['show','update']
 
   def show
-    user = User.find_by(email: request.headers['uid'])
+    user = current_api_v1_user
     memos = user.memos
-    memos_array =
-      memos.map do |memo|
-        {
-          id: memo.id,
-          title: memo.title,
-          content: memo.content,
-          created_at: memo.created_at,
-        }
-      end
+    memos_array = formatted_memos(user.memos)
     avatar_url = user.avatar_url
     render json: {
              'user' => {
@@ -24,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user = User.find_by(email: request.headers['uid'])
+    user = current_api_v1_user
     user.avatar.attach(params[:user][:avatar]) if user.avatar.blank?
     if user.update(user_params)
       render json: {}, status: 200
@@ -37,5 +29,16 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:avatar)
+  end
+
+  def formatted_memos(memos)
+    memos.map do |memo|
+      {
+        id: memo.id,
+        title: memo.title,
+        content: memo.content,
+        created_at: memo.created_at,
+      }
+    end
   end
 end

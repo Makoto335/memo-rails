@@ -44,12 +44,8 @@ class User < ActiveRecord::Base
   validate :valid_date_format
 
   def avatar_url
-    if avatar.attached?
       resized_avatar = avatar.variant(resize_to_limit: [400, 400])
       url_for(resized_avatar)
-    else
-      return nil
-    end
   end
 
   private
