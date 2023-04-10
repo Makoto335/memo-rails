@@ -34,7 +34,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.1]
       # t.string :image
       t.string :email, :null => false
       # t.string :gender
-      t.string :date_of_birth, :null => false
+      t.date :date_of_birth, :null => false
 
       ## Tokens
       t.text :tokens
